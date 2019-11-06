@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  drupal:
+    image: drupal:7
+    ports:
+      - 80:80
+    volumes:
+      - ./drupal/microservice:/var/www/html/sites/all/modules
+    restart: always
+
+  microservice:
+    build: ./microservice
+    volumes:
+      - /home/node/app/node_modules
+      - ./microservice:/home/node/app
+    ports:
+      - 4000:4000
+
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+        - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db_data:
