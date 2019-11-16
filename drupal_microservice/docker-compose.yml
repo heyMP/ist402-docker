@@ -6,17 +6,8 @@ services:
     ports:
       - 80:80
     volumes:
-      - drupal_files:/var/www/html
       - ./drupal/microservice:/var/www/html/sites/all/modules
-      - ./drupal/settings.php:/var/www/html/sites/default/settings.php
     restart: always
-
-  drush:
-    image: drush/drush
-    volumes:
-      - drupal_files:/app
-    depends_on:
-      - drupal
 
   microservice:
     build: ./microservice
