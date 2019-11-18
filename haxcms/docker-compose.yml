@@ -1,0 +1,6 @@
+version: '2'
+services:
+  haxcms:
+    image: elmsln/haxcms:latest
+    ports:
+      - 80:80
