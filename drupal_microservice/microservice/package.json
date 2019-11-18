@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn run migrate && yarn run generate && nodemon ./index.js"
+    "start": "nodemon ./index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "apollo-server-express": "^2.9.3",
     "gql": "^1.1.2",
-    "graphql": "^14.5.7"
+    "graphql": "^14.5.7",
+    "redis": "^2.8.0",
+    "crypto": "^1.0.1"
   }
 }

@@ -7,6 +7,15 @@ services:
       - 80:80
     volumes:
       - ./drupal/microservice:/var/www/html/sites/all/modules
+      - drupal_files:/var/www/html/sites/default
+    restart: always
+
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+        - db_data:/var/lib/postgresql/data
     restart: always
 
   microservice:
@@ -17,14 +26,13 @@ services:
     ports:
       - 4000:4000
 
-  postgres:
-    image: postgres:10
-    environment:
-      POSTGRES_PASSWORD: postgres
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
     volumes:
-        - db_data:/var/lib/postgresql/data
-    restart: always
+      - redis-data:/data
 
 volumes:
   db_data:
   drupal_files:
+  redis-data:

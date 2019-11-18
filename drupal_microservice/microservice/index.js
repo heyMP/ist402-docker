@@ -2,17 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { Photon } = require("@generated/photon");
-const fetch = require("node-fetch");
-const photon = new Photon();
-const jwt = require("jsonwebtoken");
 const { ApolloServer, gql } = require("apollo-server-express");
-const cp = require("child_process");
-
-const NEWS_API_KEY = process.env.NEWS_API_KEY || "ff07b06692c14cc3bf13ff2c0e350a7d";
+const newsClient = require("./news.js")
 
 async function main() {
-  await photon.connect();
   const app = express();
 
   app.use(cors());
@@ -20,9 +13,27 @@ async function main() {
 
   const apolloServer = new ApolloServer({
     typeDefs: gql`
+      type Query {
+        news(tag: String, sortBy: String, from: String): [Article]
+      }
+      type Article {
+        author: String
+        title: String
+        description: String
+        url: String
+        urlToImage: String
+        publishedAt: String
+        content: String
+        source: Source
+      }
+      type Source {
+        id: String
+        name: String
+      }
     `,
     resolvers: {
       Query: {
+        news: async (parent, options) => await newsClient(options)
       }
     }
   });
@@ -35,7 +46,6 @@ async function main() {
     );
   });
 }
-
 
 main()
   .catch(e => {

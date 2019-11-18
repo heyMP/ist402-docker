@@ -1,109 +1,60 @@
 <?php
 
 function microservice_menu() {
-  $items['microservice/user'] = array(
+  $items['microservice/news'] = array(
     'page callback' => 'microservice_page_callback',
     'access callback' => TRUE,
-    'title' => t('Microservice Users')
+    'title' => t('News Microservice'),
+    'cache' => FALSE
   );
-  $items['microservice/user/create'] = array(
-    'title' => 'Microservices Create User', //page title
-    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
-    'page arguments' => array('microservice_user_create_form'), //put the name of the form here
-    'access callback' => TRUE
+  $items['microservice/news/%'] = array(
+    'page callback' => 'microservice_page_callback',
+    'access callback' => TRUE,
+    'title' => t('News Microservice'),
+    'page arguments' => array(2),
+    'cache' => FALSE
   );
   return $items;
 }
 
-function microservice_page_callback() {
-  $users = _microservice_get_users();
-  $return = '<ul>';
-  foreach($users as $user) {
+function microservice_page_callback($tag = NULL) {
+  if ($tag == NULL) {
+    $_tag = 'drupal';
+  }
+  else {
+    $_tag = $tag;
+  }
+  $articles = _microservice_get_articles($_tag);
+  $return = '<h1>Latest news for: ' . $_tag . '</h1>';
+  $return .= '<ul>';
+  foreach($articles as $article) {
     $return .= '<li>';
-    $return .= (isset($user->name) ? $user->name : 'no name');
+    if ($article->url) {
+      $return .= '<a href="' . $article->url . '">';
+    }
+    $return .= (isset($article->title) ? $article->title : 'no name');
+    if ($article->url) {
+      $return .= '</a>';
+    }
     $return .= '</li>';
   }
   $return .= '</ul>';
-  $return .= '<a tabindex="1" href="/microservice/user/create">+ Create User in microservice</a>';
+  $return .= 'Go to: <a href="/microservice/news/bitcoin">bitcoin</a> | <a href="/microservice/news/docker">docker</a> | <a href="/microservice/news/microservices">microservices</a>';
   return $return;
 }
 
-function microservice_user_create_form($form, &$form_state) {
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name'),
-    '#required' => TRUE
-  );
-  $form['submit_button'] = array(
-    '#type' => 'submit',
-    '#value' => t('Create User')
-  );
-
-  return $form;
-}
-
-function microservice_user_create_form_validate($form, &$form_state) {
-  if (isset($form_state['values']['name'])) {
-    $available = _microservice_check_username_available($form_state['values']['name']);
-    if (!$available) {
-      form_set_error('name', t('User name is not available.'));
-    }
-  }
-  else {
-    form_set_error('name', t('You need to specify a username.'));
-  }
-}
-
-function microservice_user_create_form_submit($form, &$form_state) {
-  $status_message = _microservice_create_user($form_state['values']['name']);
-  drupal_goto('microservice/user');
-  drupal_set_message('Your status message was @message', array('@message' => $status_message));
-}
-
-function _microservice_get_users() {
-  $req = drupal_http_request('http://numberservice:1337/user');
+function _microservice_get_articles($tag) {
+  $req = drupal_http_request('http://microservice:4000/graphql', array('method' => 'POST', 'data' => '{"query":"query {\n\tnews(tag: \"'.$tag.'\") {\n    author\n    title\n    description\n    url\n    urlToImage\n    publishedAt\n    content\n    source {\n      id\n      name\n    }\n  }\n}"}', 'headers' => array('Content-Type' => 'application/json', 'Accept' => 'application/json')));
   if ($req) {
     if ($req->status_message == 'OK') {
-      $data = $req->data;
-      $data = json_decode($data);
-      $users = $data;
-    }
-    return $users;
-  }
-  return NULL;
-}
-
-function _microservice_check_username_available($name) {
-  $users = _microservice_get_users();
-  foreach($users as $user) {
-    if (isset($user->name)) {
-      if ($user->name == $name) {
-        return FALSE;
+      if ($req->data) {
+        $data = json_decode($req->data);
+        if ($data->data && $data->data->news) {
+          $articles = $data->data->news;
+        }
       }
     }
+    return $articles;
   }
-  return TRUE;
-}
-
-function _microservice_create_user($name) {
-  $options = array(
-    'headers' => array(
-      'ContentType' => 'application/json'
-    ),
-    'method' => 'POST',
-    'data' => json_encode(array('name' => $name))
-  );
-  $req = drupal_http_request('http://numberservice:1337/user', $options);
-  return $req->status_message;
-}
-
-function _microservice_delete_user_1() {
-  $options = array(
-    'headers' => array(
-      'ContentType' => 'application/json'
-    ),
-    'method' => 'DELETE'
-  );
-  $req = drupal_http_request('http://numberservice:1337/user', $options);
-  return $req->status_message;
+  return NULL;
 }
