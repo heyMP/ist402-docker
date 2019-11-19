@@ -1,0 +1,12 @@
+{
+  "name": "hax-camp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "@pika/web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
