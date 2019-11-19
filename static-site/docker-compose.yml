@@ -8,8 +8,8 @@ services:
     ports:
       - 80:80
     environment:
-      - "CONFIG_VARS=HEYMP"
-      - "HEYMP=HI"
+      - "CONFIG_VARS=HAX_FORMS_ENDPOINT"
+      - "HAX_FORMS_ENDPOINT=http://localhost:8081"
 
     
   hax-forms:

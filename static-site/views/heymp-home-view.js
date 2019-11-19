@@ -3,6 +3,11 @@ import "https://unpkg.com/@lrnwebcomponents/hax-logo/hax-logo.js?module"
 import "https://unpkg.com/hax-form/hax-form.js?module"
 
 class HeympHomeView extends LitElement {
+  static get properties() {
+    return {
+      endpoint: { type: String }
+    }
+  }
   static get styles() {
     return css`
       :host {
@@ -16,11 +21,18 @@ class HeympHomeView extends LitElement {
       }
     `
   }
+  constructor() {
+    super()
+    this.endpoint = ''
+  }
+  firstUpdated() {
+    this.endpoint = window.__env.HAX_FORMS_ENDPOINT
+  }
   render() {
     return html`
       <hax-logo></hax-logo>
       <h1>Sign up for HAX-CAMP</h1>
-      <hax-form endpoint="http://localhost:8081">
+      <hax-form endpoint="${this.endpoint}">
         <form id="hax-registration">
           <div part="row">
             <label for="firstname">First Name</label>
