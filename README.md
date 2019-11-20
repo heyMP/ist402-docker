@@ -2,6 +2,9 @@
 
 We are going to use a free service provided by the Docker community called Play With Docker. Follow these steps to set up your Play With Docker service.
 
+Introduction to Docker:
+[https://training.play-with-docker.com/beginner-linux/](https://training.play-with-docker.com/beginner-linux/)
+
 ## Instructions
 
 Go to [https://labs.play-with-docker.com/](https://labs.play-with-docker.com/) and click the `Login` button to authenticate with your Github account.  Once authenticated, you will be redirected to the Play With Docker homepage.  Now click the `Start` button.
