@@ -1,7 +1,5 @@
 # HAXCMS Docker
 
 ```bash
-docker-compose up -d
+docker-compose up
 ```
-
-Visit https://localhost
