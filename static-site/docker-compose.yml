@@ -10,7 +10,6 @@ services:
     environment:
       - "CONFIG_VARS=HAX_FORMS_ENDPOINT"
       - "HAX_FORMS_ENDPOINT=http://localhost:8081"
-
     
   hax-forms:
     image: heymp/hax-forms-service:0.1.3
