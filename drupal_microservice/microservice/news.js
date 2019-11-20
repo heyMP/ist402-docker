@@ -45,9 +45,7 @@ module.exports = async (query) => {
 };
 
 const defaultFromDate = () => {
-  // default to get dates by 30 days
-  const fromDateOffset = (24 * 60 * 60 * 1000) * 1; //5 days
-  let fromDate = new Date();
-  fromDate.setTime(fromDate.getTime() - fromDateOffset);
-  return `${fromDate.getFullYear()}-${fromDate.getMonth()}-${fromDate.getDay()}`
+  var today = new Date();
+  var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+  return lastWeek;
 }
