@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  microservice:
+    build: .
+    volumes:
+      - /home/node/app/node_modules
+      - .:/home/node/app
+    ports:
+      - 4000:4000
+    environment:
+      - "NEWS_API_KEY=733de52cb3454089b8c0953b4decbade"
+
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
