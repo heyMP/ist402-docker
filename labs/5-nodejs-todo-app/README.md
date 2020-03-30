@@ -58,5 +58,15 @@ docker images
 Now that we have our image, we can run an instance of our application by running a new container based on our new image.
 
 ```bash
-docker run -p 3000:3000 todoapp
+docker run -d -p 3000:3000 todoapp
+```
+
+## Run multiple todo apps
+
+So can't I just spin up as many containers as I want?  YES! Now that you have containerized your application you can create as many todoapps as you want!
+
+```bash
+docker run -d -p 3001:3000 todoapp
+docker run -d -p 3002:3000 todoapp
+docker run -d -p 3003:3000 todoapp
 ```
