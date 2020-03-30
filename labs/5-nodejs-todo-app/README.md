@@ -22,11 +22,9 @@ ls -la
 This is an example of how the previous applications were built. In a real-world scenario,
 you would distribute a `Dockerfile` that describes how the actual container is built.
 
-In this case, we have a todo application that is built on nodejs. If we inspect the Dockerfile
+In this case, we have a todo application that is built on nodejs. If we inspect the [Dockerfile](https://github.com/heyMP/ist402-docker/blob/master/labs/5-nodejs-todo-app/Dockerfile)
 we will see that we are installing the apps dependencies as well as telling the container how to
 start the application.
-
-Let's look at our [Dockerfile](https://github.com/heyMP/ist402-docker/blob/master/labs/5-nodejs-todo-app/Dockerfile) for this application.
 
 ```Dockerfile
 FROM node:10-alpine
