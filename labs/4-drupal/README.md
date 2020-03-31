@@ -2,6 +2,20 @@
 
 Often, a microservices will be made up of not one, but many containers network together.  In this example, we are spinning up an instance of Drupal using two separate containers.  A container running Drupal/PHP for the file system and web server, and a Postgres container for the database.
 
+## Get the code
+
+Create `ADD NEW INSTANCE` in the Docker Playground. Run the following command in the new instance console.
+
+```bash
+git clone https://github.com/heyMP/ist402-docker.git && cd ist402-docker/labs/4-drupal
+```
+
+Use the `ls -la` command to verify you are in the correct directory
+
+```bash
+ls -la
+```
+
 Instead of typing out a very long docker command each time we want to run these containers, docker provides us with `docker-compose`.  Docker-compose allows us to define multiple containers, networks, and volumes in a configuration file.  We can then use the `docker-compose` command line interface (CLI) tool to build our configuration.
 
 ```yaml
