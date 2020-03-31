@@ -2,83 +2,25 @@
 
 Now that we know how to build a container, let's deploy a webserver to the internet.
 
-## Get the code
-
-Create `ADD NEW INSTANCE` in the Docker Playground. Run the following command in the new instance console.
-
-```bash
-git clone https://github.com/heyMP/ist402-docker.git && cd ist402-docker/labs/3-nginx
-```
-
-Use the `ls -la` command to verify you are in the correct directory
-
-```bash
-ls -la
-```
-
-![](/assets/nodejs-todo-app/lookaround.png)
-
 ## Start the container 
 
-To start a new container we use the `docker run` command. This command expects us to specify the image this container; `ubuntu` in this case. We can then specify exactly which process we would like executed in the container with `/bin/bash`. As well as some arguments like `-t -i` which effective allows us to see the output of the container process.
-
-If ubuntu, /bin/bash, and the `-i -t` flags are confusing IT'S OK.  Those aren't important.  What you should be taking away from this example is that 
-  - We run containers using `docker run`.
-  - Containers need images to know what to run.
-  - Containers are not meant to live forever. They are ephemeral.
+NGINX is a very popular, super fast web server.  It's very popular for host static websites.
+we are going to spun up an instance of that web server.
 
 ```bash
-docker run -t -i ubuntu /bin/bash
+docker run -p 80:80 nginx
 ```
 
-At this point we are no longer in the Docker Playground console. We are actually inside of the container!
+Notice the `-p` flag?  That means that we are exposing to a port inside the container to the outside world.  More specifically, we are binding our "host" port `80` to our "container" port `80`. So any traffic that our host receives on port `80` will be sent into the container on port `80`.  Which how we are able to see our web server on the internet.
 
-![](/assets/ubuntu/run.png)
+## Open the browser
 
-## Destroy all the things!
+Play with Docker automatically gives us a link to the running process.
 
-Now let's do something crazy.  Lets destroy this thing! 
+![](/assets/ngnix/port.png)
 
-WARNING: never, ever, ever run the following command on your computer!
 
-```bash
-rm -rf /*
-```
+If we click that link we will see our published web server!
 
-Now run our `ls -la` command to see what files are left.
-
-```bash
-ls -la
-```
-
-![](/assets/ubuntu/destroyed.png)
-
-As you can see we don't even have access to the `ls` command.  We've officially destroyed our ubuntu server.  But don't worry.  Containers are meant to be thrown away.
-
-Let's exit from the container and spin up a new version our ubuntu server.
-
-```bash
-exit
-docker run -t -i ubuntu /bin/bash
-ls -la
-```
-
-![](/assets/ubuntu/backagain.png)
-
-Hey we're back in business!
-
-## Main Takeaways
-
-If ubuntu, /bin/bash, and the `-i -t` flags are confusing IT'S OK.  Those aren't important.  What you should be taking away from this example is that:
-
-  - We run containers using `docker run`.
-  - Containers need images to know what to run.
-  - Containers are not meant to live forever; they are ephemeral.
-
-It's important that you understand the difference between. An image and a container. To help, here is an analogy.
-
-> If a Docker image is a digital photograph, a Docker container is like a printout of that photograph. In technical terms, we call it an “instance” of the image. 
-
-[https://stackify.com/docker-image-vs-container-everything-you-need-to-know/](https://stackify.com/docker-image-vs-container-everything-you-need-to-know/)
-
+![](/assets/ngnix/webserver.png)
 
