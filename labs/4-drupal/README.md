@@ -16,6 +16,10 @@ Use the `ls -la` command to verify you are in the correct directory
 ls -la
 ```
 
+![](/assets/drupal/lookaround.png)
+
+## Docker-compose
+
 Instead of typing out a very long docker command each time we want to run these containers, docker provides us with `docker-compose`.  Docker-compose allows us to define multiple containers, networks, and volumes in a configuration file.  We can then use the `docker-compose` command line interface (CLI) tool to build our configuration.
 
 ```yaml
@@ -42,6 +46,16 @@ volumes:
 
 ## Use docker-compose to build the Drupal instance
 
+So how do we run this configuration file?  We can use the `docker-compose up` command.
+
 ```bash
 docker-compose up
 ```
+
+This will download both the drupal and postgres images to your server.  It will then spin up one container for each service.  You can see the logs of both the drupal and postgres containers in your terminal.
+
+![](/assets/drupal/output.png)
+
+## Open the Drupal container in the browser
+
+![](/assets/drupal/port.png)
