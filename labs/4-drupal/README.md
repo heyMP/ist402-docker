@@ -59,3 +59,31 @@ This will download both the drupal and postgres images to your server.  It will 
 ## Open the Drupal container in the browser
 
 ![](/assets/drupal/port.png)
+
+Congratulations, you have a fresh instance of Drupal 8! How easy was that?
+
+## Install Drupal
+
+Now lets finish the installation Drupal by following these instructions.
+
+![](/assets/drupal/install.png)
+
+- Select your language of choice
+
+- Select `Standard` installation profile
+- Select `PostgreSQL` database type
+  - Database name: `postgres`
+  - Database username: `postgres`
+  - Database password: `postgres`
+  - Select `Advanced Options`
+    - Host: `postgres`
+
+You should see the installation starting
+
+![](/assets/drupal/install-start.png)
+
+## Add Credentials and finish installation
+
+Now you're installation is almost complete. Finish by entering your information like email, which username you would like and what password you would like for this Drupal site.
+
+Congratulations, you've deployed a Drupal site! Something that took me months of trial and error a decade ago. :P
