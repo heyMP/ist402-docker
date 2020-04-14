@@ -1,0 +1,12 @@
+version: '3'
+services: 
+
+  haxcms:
+    image: elmsln/haxcms:latest
+    ports: 
+      - 80:80
+    volumes: 
+      - haxcmsfiles:/var/www/html/_sites
+
+volumes:
+  haxcmsfiles:
