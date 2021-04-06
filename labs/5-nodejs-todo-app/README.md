@@ -70,3 +70,15 @@ docker run -d -p 3001:3000 todoapp
 docker run -d -p 3002:3000 todoapp
 docker run -d -p 3003:3000 todoapp
 ```
+
+## Adding database persistance
+
+One thing you might be wondering about is, "these containers are ephimeral, won't I lose my data every time I stop the container?."  That is a fantastic question!  The answer is shockingly, yes. By default, containers are meant to be "stateless".  This simply means no long-term data is persisted in them. That's what makes them so fast and scalable.
+
+So how do we save our data? We do that by explicitly adding directories that we want saved. We can specify persistant files and directories by using the docker `volume` flag. We typically use the shorthand `-v`.
+
+Lets persist the todo app database.
+
+```bash
+docker run -d -p 3004:3000 --name todoapp -v $(pwd)/data/todo.db:/etc/todos/todo.db todoapp
+```
