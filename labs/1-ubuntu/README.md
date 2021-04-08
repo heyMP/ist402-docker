@@ -1,12 +1,12 @@
-# Ubuntu 
+# Ubuntu
 
 Let's start our journey with Docker by creating a container that uses the ubuntu image.
 
-## Start the container 
+## Start the container
 
 To start a new container we use the `docker run` command. This command expects us to specify the image of this container; `ubuntu` in this case. We can then specify exactly which process we would like executed in the container with `/bin/bash`. As well as some arguments like `-t -i` which effectively allows us to see the output of the container process.
 
-If terms ubuntu, `/bin/bash`, and the `-i -t` flags are confusing IT'S OK.  Those aren't important.  What you should be taking away from this example is that: 
+If terms ubuntu, `/bin/bash`, and the `-i -t` flags are confusing IT'S OK.  Those aren't important.  What you should be taking away from this example is that:
   - We run containers using `docker run`.
   - Containers need images to know what to run.
   - Containers are not meant to live forever. They are ephemeral.
@@ -69,7 +69,7 @@ If ubuntu, /bin/bash, and the `-i -t` flags are confusing IT'S OK.  Those aren't
 
 It's important that you understand the difference between. An image and a container. To help, here is an analogy.
 
-> If a Docker image is a digital photograph, a Docker container is like a printout of that photograph. In technical terms, we call it an “instance” of the image. 
+> If a Docker image is a digital photograph, a Docker container is like a printout of that photograph. In technical terms, we call it an “instance” of the image.
 
 [https://stackify.com/docker-image-vs-container-everything-you-need-to-know/](https://stackify.com/docker-image-vs-container-everything-you-need-to-know/)
 
