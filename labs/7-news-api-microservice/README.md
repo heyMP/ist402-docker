@@ -29,7 +29,7 @@ git clone https://github.com/heyMP/news-api-workshop && cd news-api-workshop
 
 ## Configure
 
-Before we ran any Drupal commands, we need to configure our custom settings for this application. These settings will be an API key and the url of your Play With Docker instance.
+Before we ran any Docker commands, we need to configure our custom settings for this application. These settings will be an API key and the url of your Play With Docker instance.
 
 Run the following command to set up a fresh copy of your environment settings.
 
